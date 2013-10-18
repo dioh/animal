@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
 		StringBuilder s = new StringBuilder();
 		for (File file : archivos) {
 			if (file.getName().endsWith(".jpg") || file.getName().endsWith(".png") ) {
-				s.append(file.getName());
+				s.append(file.getName() + "\n");
 			}
 		}
 		
