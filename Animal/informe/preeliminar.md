@@ -49,18 +49,24 @@ Implementar un subconjunto de exploits locales y utilizar la escala de permisos 
 
 Robo de informacion
 -------------------
+...
+
 
 Zombificacion
 --------------
 
-Implementar un pivoteo de ataques utilizando permisos de network para proxiar el ataque. [hook]
+Implementar un pivoteo de ataques utilizando permisos de network para proxiar el ataque. A-la-Hookme
+
+
+SideChannels
+---------------
 
 
 Referencias
 ==============================
 A Survey of Android Malware - Xuxian Jiang, Yajin Zhou 
 
-[transitive]: ups "Privilege Escalation Attacks on Android - Lucas Davi, Alexandra Dmitrienko , Ahmad-Reza Sadeghi, Marcel Winandy"
+Privilege Escalation Attacks on Android - Lucas Davi, Alexandra Dmitrienko , Ahmad-Reza Sadeghi, Marcel Winandy
 
 [hook]: http://code.google.com/p/hookme "Hook me"
 
