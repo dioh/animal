@@ -29,17 +29,44 @@ Herramientas utilizadas
 * Eclipse ADT bundle para desarrollo de android.
 * Emulador Genymotion para testear.
 
+Actividades a realizar
+=======================
+Para cada categoria propuesta, implementaremos pruebas de concepto que nos permitan evaluar la factibilidad de las tecnicas.
+
+Vectores de Infeccion
+----------------------
+Instalacion Manual en una primera etapa.
+
+Evaluacion de privilegios locales
+--------------------------------------------
+
+Implementar una funcionalidad que nos permita obtener un mapeo de las aplicaciones, los permisos y las capabilities de cada una.
+
+Escala de permisos
+------------------
+
+Implementar un subconjunto de exploits locales y utilizar la escala de permisos transitiva[transitive].
+
+Robo de informacion
+-------------------
+
+Zombificacion
+--------------
+
+Implementar un pivoteo de ataques utilizando permisos de network para proxiar el ataque. [hook]
+
 
 Referencias
 ==============================
 A Survey of Android Malware
 Xuxian Jiang, Yajin Zhou 
 
-Privilege Escalation Attacks on Android
-Lucas Davi, Alexandra Dmitrienko , Ahmad-Reza Sadeghi, Marcel Winandy
+[transitive]: ups "Privilege Escalation Attacks on Android - Lucas Davi, Alexandra Dmitrienko , Ahmad-Reza Sadeghi, Marcel Winandy"
 
-Permisos de android
-developer.android.com/reference/android/Manifest.permission.html	
+[hook]: http://code.google.com/p/hookme "Hook me"
+
+[perms]: http://code.google.com/p/hookme/ "Permisos de android"
+
 
 Hey, You, Get Off of My Clipboard - On How Usability Trumps Security in Android Password Managers
 Sascha Fahl, Marian Harbach, Marten Oltrogge, Thomas Muders, and Matthew Smith
