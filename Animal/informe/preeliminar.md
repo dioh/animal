@@ -47,18 +47,24 @@ Implementar un subconjunto de exploits locales y utilizar la escala de permisos 
 
 Robo de informacion
 -------------------
-...
-
+ 1. Obtener contactos (y toda su información) 
+ 1. Obtener el registro de llamadas 
+ 1. Obtener los mensajes 
+ 1. Ubicación del GPS/RED 
+ 1. Tomar una foto con la cámara 
+ 1. Capturar el audio con el micrófono 
+ 1. Enviar mensajes de texto 
+ 1. Abrir una URL en el browser 
+ 1. Hacer que el teléfono vibre.  
+ 1. Descargar un binario dinámicamente y ejecutarlo.  
 
 Zombificacion
---------------
-
+-------------- 
 Implementar un pivoteo de ataques utilizando permisos de network para proxiar el ataque. A-la-Hookme
 
 
 SideChannels
----------------
-
+--------------- 
 Utilizar un blog / servicio REST para sacar la informacion recavada.
 
 
