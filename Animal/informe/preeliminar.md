@@ -19,7 +19,12 @@ Nos centraremos en el analisis de las siguientes funcionalidades:
 
 
 
-Roadmap de una infeccion
--------------------------
+Referencias
+==============================
+A Survey of Android Malware
+Xuxian Jiang, Yajin Zhou 
 
-En el contexto 
+Privilege Escalation Attacks on Android
+Lucas Davi, Alexandra Dmitrienko , Ahmad-Reza Sadeghi, Marcel Winandy
+
+	
