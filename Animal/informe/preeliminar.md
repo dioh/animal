@@ -1,20 +1,20 @@
-Presentacion Preeliminar Animal
+Presentación Preeliminar Animal
 ===============================
 
 Android investigation on Malware
 =================================
 
-La creciente introduccion del sistema operativo Android en el mercado de telefonos celulares y tabletas electronicas pone al sistema de Google como la plataforma de malware mas interesante en este momento.
+La creciente introducción del sistema operativo Android en el mercado de telefonos celulares y tabletas electrónicas pone al sistema de Google como la plataforma de malware mas interesante en este momento.
 
 Con este motivo, realizaremos una plataforma de Malware orientada a Android.
 
-Nos centraremos en el analisis de las siguientes funcionalidades:
+Nos centraremos en el análisis de las siguientes funcionalidades:
 
- 1. Vectores de infeccion
- 2. Evaluacion de privilegios locales
+ 1. Vectores de infección
+ 2. Evaluación de privilegios locales
  3. Escala de permisos
- 4. Robo de informacion
- 5. Zombieficacion
+ 4. Robo de información
+ 5. Zombieficación
  6. Sidechannels
 
 
@@ -31,13 +31,13 @@ Herramientas utilizadas
 
 Actividades a realizar
 =======================
-Para cada categoria propuesta, implementaremos pruebas de concepto que nos permitan evaluar la factibilidad de las tecnicas.
+Para cada categoría propuesta, implementaremos pruebas de concepto que nos permitan evaluar la factibilidad de las técnicas.
 
-Vectores de Infeccion
+Vectores de Infección
 ----------------------
-Instalacion Manual en una primera etapa.
+Instalación Manual en una primera etapa.
 
-Evaluacion de privilegios locales
+Evaluación de privilegios locales
 -------------------------------------------- 
 Implementar una funcionalidad que nos permita obtener un mapeo de las aplicaciones, los permisos y las capabilities de cada una.
 
@@ -45,7 +45,7 @@ Escala de permisos
 ------------------ 
 Implementar un subconjunto de exploits locales y utilizar la escala de permisos transitiva.
 
-Robo de informacion
+Robo de información
 -------------------
  1. Obtener contactos (y toda su información) 
  1. Obtener el registro de llamadas 
@@ -55,17 +55,17 @@ Robo de informacion
  1. Capturar el audio con el micrófono 
  1. Enviar mensajes de texto 
  1. Abrir una URL en el browser 
- 1. Hacer que el teléfono vibre.  
- 1. Descargar un binario dinámicamente y ejecutarlo.  
+ 1. Hacer que el teléfono vibre
+ 1. Descargar un binario dinámicamente y ejecutarlo
 
-Zombificacion
+Zombificación
 -------------- 
 Implementar un pivoteo de ataques utilizando permisos de network para proxiar el ataque. A-la-Hookme
 
 
 SideChannels
 --------------- 
-Utilizar un blog / servicio REST para sacar la informacion recavada.
+Utilizar un blog / servicio REST para sacar la información recavada.
 
 
 Referencias
