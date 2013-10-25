@@ -21,7 +21,7 @@ Nos centraremos en el analisis de las siguientes funcionalidades:
 Actividades realizadas
 ======================
 
-Generamos una aplicación básica en android que lista las imágenes en carpetas donde se suelen encontrar fotografías (/Pictures y /DCIM/Camera). Usamos el permiso *READ_EXTERNAL_STORAGE* para poder acceder a la memoria externa. Para poder enviar las fotografías agregaremos el permiso *INTERNET*.
+Generamos una aplicación básica en android que lista las imágenes en carpetas donde se suelen encontrar fotografías (_/Pictures_ y _/DCIM/Camera_). Usamos el permiso **READ_EXTERNAL_STORAGE** para poder acceder a la memoria externa. Para poder enviar las fotografías agregaremos el permiso **INTERNET**.
 
 Herramientas utilizadas
 =======================
@@ -39,7 +39,7 @@ Privilege Escalation Attacks on Android
 Lucas Davi, Alexandra Dmitrienko , Ahmad-Reza Sadeghi, Marcel Winandy
 
 Permisos de android
-developer.android.com/reference/android/Manifest.permission.html	
+http://developer.android.com/reference/android/Manifest.permission.html	
 
 Hey, You, Get Off of My Clipboard - On How Usability Trumps Security in Android Password Managers
 Sascha Fahl, Marian Harbach, Marten Oltrogge, Thomas Muders, and Matthew Smith
