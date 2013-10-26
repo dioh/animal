@@ -4,7 +4,7 @@ Presentación Preeliminar Animal
 Android investigation on Malware
 =================================
 
-La creciente introducción del sistema operativo Android en el mercado de telefonos celulares y tabletas electrónicas pone al sistema de Google como la plataforma de malware mas interesante en este momento.
+La creciente introducción del sistema operativo Android en el mercado de teléfonos celulares y tabletas electrónicas pone al sistema de Google como la plataforma de malware mas interesante en este momento.
 
 Con este motivo, realizaremos una plataforma de Malware orientada a Android.
 
