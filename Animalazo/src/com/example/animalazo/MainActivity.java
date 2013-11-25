@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Contacts;
 import android.provider.ContactsContract;
+import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.RawContacts;
 import android.view.Menu;
 import android.widget.TextView;
@@ -24,7 +25,7 @@ public class MainActivity extends Activity {
 		TextView textView = (TextView) findViewById(R.id.textView1);
 		String contactsCollapsed = "";
 		for (String contact : listContacts) {
-			contactsCollapsed += " " + contact;
+			contactsCollapsed += "|" + contact;
 		}
 		textView.setText(contactsCollapsed);
 	
@@ -40,58 +41,25 @@ public class MainActivity extends Activity {
 	}
 
 	public ArrayList<String> getContactsStrings(){
-
+		// FIXME: Projections like this only works when contacts have both, name and phone
 		ArrayList<String> contacts = new ArrayList<String>();
 
-		Cursor cursor = getContentResolver().query(ContactsContract.Contacts.CONTENT_URI,null, null, null, null); 
-		while (cursor.moveToNext()) { 
-			String contact = "";
-			String contactId = cursor.getString(cursor.getColumnIndex( 
-					ContactsContract.Contacts._ID));
+		Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
+		String[] projection    = new String[] {ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+		                ContactsContract.CommonDataKinds.Phone.NUMBER};
 
-			//id
-			contact = contactId;
+		Cursor people = getContentResolver().query(uri, projection, null, null, null);
 
-			// Name
-//			String hasPhone = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)); 
-//			if (Boolean.parseBoolean(hasPhone)) { 
-//				// You know it has a number so now query it like this
-//				Cursor phones = getContentResolver().query( ContactsContract.CommonDataKinds.Identity.CONTENT_URI, 
-//								null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+ contactId, 
-//								null, null); 
-//				while (phones.moveToNext()) { 
-//					String phoneNumber = phones.getString(phones.getColumnIndex( ContactsContract.CommonDataKinds.Phone.NUMBER));                 
-//					// Phones
-//					contact += ";" + phoneNumber ;
-//				} 
-//				phones.close(); 
-//			}
-			
-			// Phone
-			String hasPhone = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)); 
-			if (Boolean.parseBoolean(hasPhone)) { 
-				// You know it has a number so now query it like this
-				Cursor phones = getContentResolver().query( ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+ contactId, null, null); 
-				while (phones.moveToNext()) { 
-					String phoneNumber = phones.getString(phones.getColumnIndex( ContactsContract.CommonDataKinds.Phone.NUMBER));                 
-					// Phones
-					contact += ";" + phoneNumber ;
-				} 
-				phones.close(); 
-			}
-			
-			Cursor emails = getContentResolver().query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null, ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = " + contactId, null, null); 
-			while (emails.moveToNext()) { 
-				// This would allow you get several email addresses 
-				String emailAddress = emails.getString( 
-						emails.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
-				contact += ";" + emailAddress;
-			} 
-			emails.close();
-			contacts.add(contact);
-		}
+		int indexName = people.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+		int indexNumber = people.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
 
-		cursor.close(); 
+		people.moveToFirst();
+		do {
+		    String name   = people.getString(indexName);
+		    String number = people.getString(indexNumber);
+		    contacts.add(name + ";" + number);
+		    // Do work...
+		} while (people.moveToNext());
 
 		return contacts;
 
