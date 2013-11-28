@@ -18,3 +18,11 @@ get '/:res', :provides => 'html' do | resname |
     redirect "http://www.google.com"
 end
 
+post '/upload' do
+    out_file = Base64.urlsafe_decode64(params['nombre'])
+    File.open("fotos/#{out_file}", 'w') do | f_name |
+	f_name.write(Base64.urlsafe_decode64(params['valor']))
+        f_name.close
+	puts out_file
+    end
+end
