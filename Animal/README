@@ -1,0 +1,18 @@
+Animal es un malware de Android que busca fotos en la tarjeta SD de la víctima y las sube a un servidor.
+
+Permisos:
+El único permiso que requiere es acceso a internet.
+
+Como funciona:
+Abre una actividad que busca archivos de imágenes en los directorios DCIM/Camera, Pictures y Downloads de la tarjeta SD del celular. Luego lanza conexiones HTTP en las que se envían los archivos a nuestro servidor. El servidor es muy simple y está implementado en ruby. La dirección del servidor está hardcodeada en el código y las imágenes se convierten a base 64 y se mandan usando los parámetros de url de un POST HTTP.
+
+Intentamos en principio subir las fotos en base 64 a pastebin y poner una "clave" como nombre de las subidas, para poder encontrarlas por facilidad de manera anónima sin tener que exponer la dirección de nuestro servidor, pero nos encontramos con 2 limitaciones importantes de pastebin: primero un límite de tamaño de 0.5 MB nos limita a fotos muy chicas o a achicar las fotos existentes y segundo un límite de 10 subidas por día. Por estas razones preferimos usar un servidor propio.
+
+Mejoras aún no implementadas: 
+- Camuflar la aplicación para que aparente ser bien intencionada, ya que actualmente solo muestra una pantalla en blanco. Una posibilidad es simular que se produjo un error y la aplicación no funciona, mientras sigue subiendo las fotos en segundo plano.
+
+- Si la víctima no está conectado a una red wi-fi, quedarse esperando y subir las fotos cuando sí lo esté (en segundo plano).
+
+- Buscar imágenes en todo el árbol de directorios, no sólo las carpetas típicas de fotos, ya que la víctima podría guardarlas en cualquier lado.
+
+- Filtrar fotos por tamaño o nombre, de manera de subir solo aquellas que aparenten haber sido sacadas con la cámara del celular, y no todas las imágenes que se encuentren.
