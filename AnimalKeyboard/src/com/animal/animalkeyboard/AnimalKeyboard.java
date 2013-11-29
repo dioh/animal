@@ -294,12 +294,12 @@ public class AnimalKeyboard extends InputMethodService
 			catch(RemoteException rme)
 			{
 				//Show an Error Message
-				Toast.makeText(AnimalKeyboard.this, "Invocation Failed!!", Toast.LENGTH_LONG).show();
+				//Toast.makeText(AnimalKeyboard.this, "Invocation Failed!!", Toast.LENGTH_LONG).show();
 			}
 		}
 		else
 		{
-			Toast.makeText(AnimalKeyboard.this, "Service is Not Bound!!", Toast.LENGTH_LONG).show();
+			//Toast.makeText(AnimalKeyboard.this, "Service is Not Bound!!", Toast.LENGTH_LONG).show();
 		}
 	}
     
