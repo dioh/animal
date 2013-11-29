@@ -7,6 +7,8 @@
 %% \usecolortheme[rgb={0.4,0.5,0.4}]{structure}
 \usepackage{color}
 
+\usepackage{listings}
+
 % \usepackage[T1]{fontenc}
 % \usepackage{libertine}
 \usepackage[spanish]{babel}
@@ -48,213 +50,46 @@
 %%             \end{itemize} 
 %%         }
 %% 
-%%         \frame{
-%%             Conceptos fuertes
-%%             \begin{itemize}
-%%                 \item Automatic parallelization and distribution
-%%                 \item Fault-tolerance
-%%                 \item I/O scheduling
-%%                 \item Status and monitoring 
-%%             \end{itemize} 
-%%         }
-%% 
-%%         \subsection{Framework de programaci\'on}
-%%         \frame{
-%%             \begin{center}
-%%                 \large
-%%             !`Datos, Datos, Datos ! \\
-%%             \Huge Google procesa 24 petabytes/d\'ia
-%%         \end{center}
-%%         }
-%% 
-%%         \begin{frame}[fragile]
-%%             \large
-%%             Map - Reduce
-%% \begin{verbatim}
-%%  > map (in_key, in_value) -> 
-%%         list(out_key, intermediate_value) 
-%% 
-%%  >  reduce (out_key, list(intermediate_value)) -> 
-%%         list(out_value) 
-%% 
-%% \end{verbatim}
-%% 
-%% Orientado a documentos, clave-valor.  
-%%             
-%% \end{frame}
-%% 
-%% \frame{
-%%     \begin{center}
-%%         \Large
-%%         Un ejemplo \\
-%% 		\includegraphics[scale=0.5]{imgs/map-reduce-datos.png} 
-%%     \end{center}
-%%     \url{http://docs.mongodb.org/manual/core/map-reduce}
-%% }
-%% 
-%% \begin{frame}[fragile]
-%%     \begin{center}
-%%         \Large 
-%%         Map
-%%     \end{center}
-%%     \begin{verbatim}
-%%  map = function() {
-%%      emit(this.cust_id, this.amount); 
-%%  } 
-%%     \end{verbatim}
-%%     \begin{center}
-%%         \includegraphics[scale=0.5]{imgs/map-reduce-datos-map.png} 
-%%     \end{center}
-%% \end{frame}
-%% 
-%% \begin{frame}[fragile]
-%%     \begin{center}
-%%         \Large 
-%%         Reduce
-%%     \end{center}
-%%     \begin{verbatim}
-%%  reduce = function(key, values) {
-%%     return Array.sum(values);
-%%  } 
-%%     \end{verbatim}
-%%     \begin{center}
-%%         \includegraphics[scale=0.5]{imgs/map-reduce-datos-reduce.png} 
-%%     \end{center}
-%% \end{frame}
-%% 
-%% \begin{frame}[fragile]
-%%     \small
-%%     \begin{verbatim}
-%%     > use sales
-%%     > show collections
-%%         orders
-%%     > db.orders.mapReduce(map, reduce, order_totals);
-%%     > show collections 
-%%         orders
-%%         order_totals
-%%         
-%%     \end{verbatim}
-%%     \begin{center}
-%% 		\includegraphics[scale=0.4]{imgs/map-reduce-datos.png} 
-%%     \end{center}
-%% 
-%% \end{frame}
-%% 
-%% 
-%%         \subsection{Arquitectura}
-%%         \frame{
-%%             Localizaci\'on de los datos para minimizar I/O sobre la red, brindando:
-%%             \begin{itemize}
-%%                 \item Replicaci\'on
-%%                 \item Disponibilidad 
-%%             \end{itemize} 
-%%             \includegraphics[scale=0.3]{imgs/arch.png}
-%%         }
-%% 
-%%         \begin{frame}\title{NFS}
-%%             \begin{itemize}
-%%                 \item El \emph{Network File System} es un protocolo que permite acceder a FS remotos como si fueran locales, utilizando RPC.
-%%                 \item La idea es que un FS remoto se monta en algún punto del sistema local y las aplicaciones acceden a archivos de ahí, sin saber que son remotos.
-%%                 \item Para poder soportar esto, los SO incorporan una capa llamada \emph{Virtual File System}.
-%%                 \item Esta capa tiene \emph{vnodes} por cada archivo abiertos. Se corresponden con inodos, si el archivo es local. Si es remoto, se almacena otra información.
-%%                 \item Así, los pedidos de E/S que llegan al VFS son despachados al FS real, o al \emph{cliente de NFS}, que maneja el protocolo de red necesario.
-%%                 \item Si bien del lado del cliente es necesario un módulo de kernel, del lado del server alcanza con un programa común y corriente.
-%%             \end{itemize}
-%%         \end{frame}
-%% 
-%%         \begin{frame}\title{NFS (cont.)}
-%%             \begin{center}
-%%                 \includegraphics[height=0.4\textheight]{imgs/nfs.png}
-%%             \end{center}
-%%             \begin{itemize}
-%%             \item Otros FS distribuidos funcionan de manera similar (en cuanto a su integración con el kernel).
-%%             \item Notar que, desde cierto punto de vista, NFS no es 100\% distribuido, ya que todos los datos de un mismo ``directorio'' deben vivir físicamente en el mismo lugar.
-%%             \item Hay FS 100\% distribuidos, como AFS o Coda.
-%%             \item Han tenido un éxito relativo.
-%%             \end{itemize}
-%%         \end{frame}
-%% 
-%%         \frame{
-%%             \title{Jobs}
-%%             Framework de ejecuci\'on
-%%             \begin{itemize}
-%%                 \item Map
-%%                 \item Combine
-%%                 \item Reduce 
-%%             \end{itemize} 
-%%             !`Alguien debe orquestar la ejecuci\'on! \\
-%%             \url{http://www.cs.berkeley.edu/~matei/talks/2009/msr_mapreduce_scheduling.pdf}
-%%         }
-%%         \frame{
-%%             \title{Jobs (cont.)}
-%%             \begin{center}
-%%                 \includegraphics[height=0.4\textheight]{imgs/jobs.png}
-%%             \end{center} 
-%%             \begin{itemize}
-%%                 \item Organizar los Jobs en subtareas
-%%                 \item Minimizar tiempo idle de los nodos del cluster
-%%                 \item Subtareas organizadas para aprovechar vecindad espacial (en el cluster)
-%%                 \item Maximizar el uso de los nodos del cluster
-%%             \end{itemize}
-%%             Y si cada nodo puede ejecutar varias tareas, ?`c\'omo se asignan?
-%%         }
-%% 
-%%         \section{Introduciendo Mongo}
-%%         \subsection{?`Qu\'e es?}
-%%         
-%%         \frame{
-%%             Una base de datos No-SQL que implementa:
-%%             \begin{itemize}
-%%                 \item MapReduce
-%%                 \item Replicaci\'on y alta disponibilidad
-%%                 \item Autosharding, escalabilidad horizontal
-%%                 \item GridFS
-%%             \end{itemize} 
-%%         }
-%% 
-%% 
-%%         \section{El TP}
-%%         \subsection{?`Que aprenderemos?}
-%%         \frame{
-%%             Se espera que:
-%%             \begin{itemize}
-%%                 \item Aprendan a manejar el modelo de programaci\'on.
-%%                     \begin{itemize}
-%%                         \item !`Como algo uan pero un poquito m\'as!
-%%                     \end{itemize}
-%%                 \item Realicen un an\'alisis de arquitectura. 
-%%                 \item Entiendan los criterios de an\'alisis para observar un sistema distribuido.
-%%                 \item Todo en una VM. 
-%%             \end{itemize}
-%% 
-%%         }
-%% 
-%%         \section{Referencias}
-%%         \tiny
-%% 
-%%         \frame{
-%%             \begin{itemize}
-%%                 \item Data-Intensive Text Processing with MapReduce, Jimmy Lin and Chris Dyer University of Maryland, College Park
-%% 
-%%                 \item Mining  of  Massive Datasets Anand Rajaraman Jure Leskovec  Stanford Univ. Jeffrey D. Ullman
-%%                 \item Data-Intensive Text Processing with MapReduce Jimmy Lin and Chris Dyer University of Maryland, College Park
-%%                 \item The Little MongoDB Book Karl Seguin
-%%                 \item \url{http://docs.mongodb.org/manual/}
-%%                 \item \url{http://research.google.com/archive/mapreduce-osdi04-slides/index.html}
-%%                 \item \url{http://static.googleusercontent.com/media/research.google.com/es//archive/mapreduce-osdi04.pdf}
-%%                 \item \url{http://www.mongodb.com/dl/big-data}
-%%                 \item \url{http://info.mongodb.com/rs/mongodb/images/MongoDB-Performance-Considerations_2.4.pdf}
-%%                 \item \url{http://christophermeiklejohn.com/distributed/systems/2013/07/12/readings-in-distributed-systems.html} 
-%%             \end{itemize}
-%% 
-%%         }
-%%         \frame{
-%%             \begin{center}
-%%                 \includegraphics[height=0.6\textheight]{imgs/eso-es-todo.png}
-%%                 
-%%             \end{center}
-%% 
-%%         }
-%% 
+
+        \subsection{Information leakage / control}
+        \frame{
+            \begin{itemize}
+                \item (Sinatra rb) restfull 
+                    \begin{item}
+                    \item distribuible
+                    \item facil de mantener
+                    \item extensible
+                    \end{item}
+                \item Operaciones GET y POST
+                    \begin{itemize}
+                        \item obtener contactos, fotos, etc
+                        \item pushear comandos
+                        \item dormirse, despertarse ?
+                    \end{itemize}
+                \item 
+                    
+            \end{itemize}
+
+        }
+        \frame{
+pepe
+\begin{lstlisting}
+#!/usr/bin/ruby
+require 'sinatra'
+get '/contacts' do | res| ...
+post '/upload' do ...
+post '/key' do ...
+
+\end{lstlisting}
+
+        }
+        \frame{
+            \begin{center}
+                \includegraphics[height=0.6\textheight]{imgs/eso-es-todo.png}
+                
+            \end{center}
+
+        }
+
 
 \end{document}
