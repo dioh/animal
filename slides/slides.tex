@@ -13,6 +13,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{verbatim}
+\usepackage{hyperref}
 %\usepackage{wrapfig}
 
 
@@ -29,13 +30,137 @@
 		\titlepage
 	\end{frame}
 
+        \section{Herramientas y ambiente}
+        \frame{
+            \begin{itemize}
+                \item Android SDK\footnotetext{\url{https://developer.android.com/sdk/index.html}}
+                \item Genymotion Android emulator\footnotetext{\url{http://www.genymotion.com}}
+                \item Eclipse plugins para ambas cosas.
+            \end{itemize}
+        }
+        
         \section{Animal}
 
         \frame{
-            \begin{block}{Quote}
-                Animalazo es un framework de .. ppapapapa
+            \begin{block}
+                \title{Descripci\'on del malware}
+                Animal es un malware de Android que busca fotos en la tarjeta SD de la v\'ctima y las sube a un servidor.
+            \end{block}
+            \begin{block}
+                \title{Permisos requeridos}
+                El \'unico permiso que requiere es acceso a internet (\verb|android.permission.INTERNET|).
             \end{block} 
         }
+
+        \frame{
+            \begin{block}
+                \title{C\'omo funciona?}
+                    \begin{enumerate}
+                        \item Abre una actividad\footnotetext{\url{http://developer.android.com/reference/android/app/Activity.html}} que busca archivos de im\'agenes en los directorios \texttt{DCIM/Camera}, \texttt{Pictures} y \texttt{Downloads} de la tarjeta SD del celular. 
+                        \item Lanza conexiones \texttt{HTTP} sobre las  que se env\'ian los archivos a nuestro servidor (\texttt{Servercito}).
+                        \item La direcci\'on de \texttt{Servercito} est\'a hardcodeada en el c\'odigo y las im\'agenes se convierten a base64 y se mandan usando los par\'ametros de url de un POST HTTP. 
+            \end{block}
+        }
+
+        \frame{
+            \begin{block}
+                \title{Problemas que encontramos}
+                    \paragraph{}Intentamos en principio subir las fotos en base 64 a pastebin y poner una ``clave'' como nombre de las subidas, para poder encontrarlas con facilidad de manera an\'onima sin tener que exponer la direcci\'on de nuestro servidor, pero nos encontramos con 2 limitaciones importantes de pastebin: 
+                    \begin{itemize}
+                        \item Un l\'imite de tamaño de 0.5 MB nos limita a fotos muy chicas o a achicar las fotos existentes                      
+                        \item Un l\'imite de 10 subidas por d\'ia.
+                    \end{itemize}
+            \end{block}
+        }
+
+        \frame{
+            \begin{block}
+                \title{Mejoras a\'un no implementadas}
+                    \begin{itemize}
+                        \item Camuflar la aplicación para que aparente ser bien intencionada, ya que actualmente solo muestra una pantalla en blanco. Una posibilidad es simular que se produjo un error y la aplicación no funciona, mientras sigue subiendo las fotos en segundo plano.
+                        \item Si la víctima no está conectado a una red wi-fi, quedarse esperando y subir las fotos cuando sí lo esté (en segundo plano).
+                        \item Buscar imágenes en todo el árbol de directorios, no sólo las carpetas típicas de fotos, ya que la víctima podría guardarlas en cualquier lado.
+                        \item Filtrar fotos por tamaño o nombre, de manera de subir solo aquellas que aparenten haber sido sacadas con la cámara del celular, y no todas las imágenes que se encuentren.
+                    \end{itemize}
+            \end{block}
+        }
+        
+        
+        \section{Animalazo}
+        
+        \frame{
+            \begin{block}
+                \title{Descripci\'on del malware}
+                Animalazo es un malware de Android que roba los contactos de la v\'ctima y las sube a un servidor.
+            \end{block}
+            \begin{block}
+                \title{Permisos requeridos}
+                El \'unico permiso que requiere es acceso de lectura a la los contactos (\verb|android.permission.READ_CONTACTS|).
+            \end{block} 
+        }
+
+        \frame{
+            \begin{block}
+                \title{C\'omo funciona?}
+                    \begin{enumerate}
+                        \item Una aplicaci\'on inofensiva invita al usuario a pelear por salvar a los animales, mostrando dos perritos corriendo.
+                        \item Cuando el usuario hace click en el bot\'on para ayudar:
+                        \begin{itemize}
+                            \item Se leen los contactos y se encodean en base64.
+                            \item se crea un Intent\footnotetext{\url{http://developer.android.com/reference/android/content/Intent.html}} que abre un browser como si se estuviese visitando una p\'agina.
+                            \item Se hace un GET a un server controlado por el atacante, enviando por los par\'ametros del GET los contactos encodeados (hay limitaciones de tama\~no)
+                            \item El server malicioso responde con un Redirect (302) a google, como si nada hubiera pasado.
+                        \end{itemize}
+                    \end{enumerate}
+            \end{block}
+        }
+
+        \frame{
+            \begin{block}
+                \title{Problemas que encontramos}
+                    \paragraph{} A veces la aplicaci\'on no enviaba los contactos, pensamos que tenia cacheada la URL del Intent. Despu\'es nos dimos cuenta que los distintos estados de la aplicaci\'on eran relevantes: \texttt{onCreate()}, \texttt{onStart()}, \texttt{onResume()}. Afinando mejor pudimos entender cual era el problema.
+            \end{block}
+        }
+
+        \frame{
+            \begin{block}
+                \title{Mejoras a\'un no implementadas}
+                    \begin{itemize}
+                        \item Limitacion en el tama\~no de los URIs utilizados para extraer la informaci\'on. Aunque no est\'a definido este l\'imite de manera expl\'icita en el RFC2616\footnotetext{\url{http://www.faqs.org/rfcs/rfc2616.html}} hay limitaciones en las implementaciones.
+                    \end{itemize}
+            \end{block}
+        }
+
+        
+        \section{Animal Keyboard + FunWithAnimals}
+
+        \frame{
+            \begin{block}
+                \title{Descripci\'on del malware}
+                Animal Keyboard es un teclado de Android que ofrece un tab de emoticones para incentivar a los usuarios a instalarlo. No tiene ningún permiso extra, por lo que por sí solo es inofensivo. Al combinarse con la instalaci\'on de la aplicaci\'on FunWithAnimals, ambas act\'uan como keylogger mediante IPC. 
+            \end{block}
+            \begin{block}
+                \title{Permisos requeridos}
+                    \verb|android.permission.BIND_INPUT_METHOD| para el teclado (como cualquier otro) y \verb|android.permission.INTERNET| para FunWithAnimals.\\ 
+                    N\'otese que al registrar un teclado nuevo, Android advierte que éste podría robarse tu información. Es por esto que muchas aplicaciónes de este tipo no incluyen permisos de internet para generar más confianza (\url{http://cdn.cultofandroid.com/wp-content/uploads/2013/02/light_flow_1.jpg}).
+            \end{block} 
+        }
+
+        \frame{
+            \begin{block}
+                \title{C\'omo funciona?}
+                    \begin{enumerate}
+                        \item El teclado Animal Keyboard lgouea y graba las teclas tipeadas por el usuario.
+                        \item Al estar instalada una segunda aplicación maliciosa (FunWithAnimals, con permisos de internet para poder mostrar divertidas fotos de gatos), AnimalKeyboard comienza a enviar mediante IPC las teclas tipeadas a un servicio registrado por FunWithAnimals. 
+                        \item Al abrir FunWithAnimals, envía a un servidor propio lo tipeado hasta el momento.
+                        \end{itemize}
+                    \end{enumerate}
+            \end{block}
+        }
+
+        
+        
+        
 %% 
 %%         \frame{ 
 %%             \title{?`Qu\'e es?}
