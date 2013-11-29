@@ -1,0 +1,8 @@
+﻿AnimalKeyboard es un teclado de Android que ofrece un tab de emoticones para incentivar a los usuarios a instalarlo. No tiene ningún permiso extra, por lo que por sí solo es inofensivo.
+
+Permisos:
+Registrar método de input (necesario para cualquier teclado)
+Al registrar un teclado nuevo, Android advierte que éste podría robarse tu información. Es por esto que muchas aplicaciónes de este tipo no incluyen permisos de internet para generar más confianza (http://cdn.cultofandroid.com/wp-content/uploads/2013/02/light_flow_1.jpg).
+
+FunWithAnimals:
+Al estar instalada una segunda aplicación maliciosa (FunWithAnimals, con permisos de internet para poder mostrar divertidas fotos de gatos), AnimalKeyboard comienza a enviar mediante IPC las teclas tipeadas a un servicio registrado por FunWithAnimals. Al abrir FunWithAnimals, envía a un servidor propio lo tipeado hasta el momento.
