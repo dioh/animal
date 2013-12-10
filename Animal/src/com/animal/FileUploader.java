@@ -6,16 +6,30 @@ import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Base64;
 
 public class FileUploader extends AsyncTask<File, Void, Void> {
-
+	
+//	private static String IP_ADDRESS = "192.168.1.5:4567";
 	private static String IP_ADDRESS = "192.168.33.1:4567";
+	
+	private MainActivity activity;	
+	
+	public FileUploader(MainActivity activity) {
+		this.activity = activity;
+	}
 	
 	@Override
 	protected Void doInBackground(File... files) {
 		try {
+			
+			while (! this.isConnectedToWifi()) {
+				Thread.sleep(10 * 1000);
+			}
 			
 			URL url = new URL("http://" + IP_ADDRESS + "/upload");
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -48,4 +62,15 @@ public class FileUploader extends AsyncTask<File, Void, Void> {
 		return null;
 	}
 
+	private boolean isConnectedToWifi() {
+		ConnectivityManager connectivityManager = (ConnectivityManager)
+				this.activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = null;
+		if (connectivityManager != null) {
+		    networkInfo = connectivityManager.getActiveNetworkInfo();
+		}
+		
+		return networkInfo != null && networkInfo.getState() == NetworkInfo.State.CONNECTED;
+	}
+	
 }
