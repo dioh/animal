@@ -1,0 +1,57 @@
+\documentclass[a4paper,spanish]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}	%para los acentos
+\usepackage{caratula}
+\usepackage{amsmath, amscd, amssymb, amsthm, latexsym, verbatim}
+\usepackage{graphicx, graphics, caption}
+\usepackage{fancyhdr}
+% \usepackage{float, algorithmic}
+% \usepackage[a4paper=true]{hyperref}
+% \usepackage{algorithm}
+\usepackage{multirow}
+
+%probando para los margenes
+\usepackage[top= 3cm, bottom= 3cm , left= 2.5cm, right= 2.5 cm]{geometry}
+
+% configuro el paquete de algoritmos
+% \floatname{algorithm}{Algoritmo}
+
+\makeatletter
+\newcounter{algorithmic}
+\let\ORIG@algorithmic\algorithmic
+\def\algorithmic{\stepcounter{algorithmic}\ORIG@algorithmic}
+\def\theHALC@line{\thealgorithmic-\theALC@line}
+\def\theHALC@rem{\thealgorithmic-\theALC@rem}
+\makeatother
+
+% encabezados
+\newcommand{\norma}[1]{\left|\left|#1\right|\right|}
+\parskip=1ex
+\pagestyle{fancy}
+\pagenumbering{arabic}
+%\fancyhf{}
+\renewcommand{\headrulewidth}{0.02 cm}
+\renewcommand{\footrulewidth}{0 cm}
+\rhead{Animal}
+\lhead{Seguridad de la Información}
+\def\septad{\rule{16 cm}{.2 mm}}
+\usepackage{hyperref}
+
+% defino un environment propio para las ecuaciones
+%\newenvironment{ecuacion}
+%	{\begin{equation} \begin{aligned}}
+%	{\end{aligned} \end{equation}}
+%	
+%\newenvironment{ecuacion*}
+%	{\begin{equation*} \begin{aligned}}
+%	{\end{aligned} \end{equation*}}
+
+% comienzo el documento
+\begin{document}
+	\include{caratula}
+
+	\tableofcontents
+	\include{tecnologia}
+	\include{animal}
+
+\end{document}
