@@ -15,15 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	TextView text;
 	private static String IP_ADDRESS = "192.168.33.1:4567";
 	
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	protected void onResume()
+	{
+		super.onResume();
         setContentView(R.layout.activity_main);
         
-        text = (TextView) findViewById(R.id.textView1);
+        TextView text = (TextView) findViewById(R.id.textView1);
         
     	FileInputStream fis;
     	try {
@@ -50,7 +49,7 @@ public class MainActivity extends Activity {
     	
     	WebView web = (WebView) findViewById(R.id.webView1);
     	web.loadUrl("http://thecatapi.com/api/images/get?format=html&size=small");
-    }
+	}
     
     public void dataSent()
     {
