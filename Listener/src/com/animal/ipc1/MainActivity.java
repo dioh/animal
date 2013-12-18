@@ -4,18 +4,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Properties;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	private static String IP_ADDRESS = "192.168.33.1:4567";
 	
 	protected void onResume()
 	{
@@ -39,7 +35,7 @@ public class MainActivity extends Activity {
 	    	
 	    	text.setText(fileContent);
 	    	
-	    	new RequestTask(this).execute("http://"+IP_ADDRESS+"/key", fileContent.toString());
+	    	new RequestTask(this).execute("http://"+ this.getAddress() +"/key", fileContent.toString());
 	    	
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -69,5 +65,16 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-       
+    
+	
+	private String getAddress() {
+		try {
+			Properties properties = new Properties();
+			properties.load(this.getAssets().open("server.properties"));
+			return properties.getProperty("address");
+		} catch (Exception e) {
+			return null;
+		}
+	}
+    
 }

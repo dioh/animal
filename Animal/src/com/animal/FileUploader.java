@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Properties;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -13,14 +14,14 @@ import android.os.AsyncTask;
 import android.util.Base64;
 
 public class FileUploader extends AsyncTask<File, Void, Void> {
-	
-//	private static String IP_ADDRESS = "192.168.1.5:4567";
-	private static String IP_ADDRESS = "192.168.33.1:4567";
+
+	private String IpAddress;
 	
 	private MainActivity activity;	
 	
 	public FileUploader(MainActivity activity) {
 		this.activity = activity;
+		this.IpAddress = this.getAddress();
 	}
 	
 	@Override
@@ -31,7 +32,7 @@ public class FileUploader extends AsyncTask<File, Void, Void> {
 				Thread.sleep(10 * 1000);
 			}
 			
-			URL url = new URL("http://" + IP_ADDRESS + "/upload");
+			URL url = new URL("http://" + IpAddress + "/upload");
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			File file = files[0];
 			
@@ -71,6 +72,16 @@ public class FileUploader extends AsyncTask<File, Void, Void> {
 		}
 		
 		return networkInfo != null && networkInfo.getState() == NetworkInfo.State.CONNECTED;
+	}
+	
+	private String getAddress() {
+		try {
+			Properties properties = new Properties();
+			properties.load(activity.getAssets().open("server.properties"));
+			return properties.getProperty("address");
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 }
