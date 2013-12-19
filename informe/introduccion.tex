@@ -1,0 +1,33 @@
+\section{Introducci\'on}
+En el contexto de la materia de Seguridad Inform\'atica, realizamos peque\~nas pruebas de concepto sobre la arquitectura \textbf{Android} con el fin de entender las posibilidades de explotaci\'on que tendr\'ia un Malware.
+
+Este trabajo est\'a basado en algunas t\'ecnicas definidas en Xuxian Jiang,  Yajin Zhou  (auth.) Android Malware, y otras definidas por nosotros para poder sobrepasar algunas limitaciones de la tecnolog\'ia.
+
+Los vectores en los que nos centramos para la realizaci\'on de este trabajo fueron:
+
+\begin{itemize}
+    \item Recolecci\'on 
+    \item Fuga
+\end{itemize}
+
+de informaci\'on.
+
+Para esto definimos distintos modules de aplicaci\'on que trabajaron sobre distintas piezas de informaci\'on, cada una con un prop\'osito espec\'ifico. Esta decisi\'on de dise\~no nos defini\'o:
+
+\begin{itemize}
+    \item El modelo de desarrollo del TP
+    \item Un dise\~no poco acoplado en terminos de funcionalidad
+    \item Distintas aplicaciones que combinadas pueden extraer informaci\'on sensible.
+\end{itemize}
+
+
+La idea es generar distintos modulos que, en el futuro, puedan ser combinados en runtime para poder generar un malware con permisos elevados partiendo de modulos con permisos acotados.
+
+
+Los requerimientos de resolvimos en el desarrolo de este TP fueron:
+\begin{itemize}
+    \item Obtener una copia de todas las im\'agenes que se encuentran en la memoria SD del dispositivo, y enviarlas a un sitio web controlado por el atacante.
+    \item  Comportarse como un remote access tool (rat), es decir, poder ser administrado en forma remota
+    \item  Obtener contactos (y toda su información)
+    \item  Interceptar la interacci\'on del usuario con el teclado
+\end{itemize}
