@@ -26,6 +26,23 @@
 	
 	\subsection{Direcciones IP}
 		Por defecto Severcito bindea a la dirección IP \texttt{192.168.33.1} con el puerto \texttt{4567}, a la que también referencian las aplicaciones. Si esa dirección IP no está disponible, será necesario cambiarla por otra en el código de \texttt{server.rb} y también en las aplicaciones. Para cambiar la dirección del servidor en las aplicaciones es necesario modificar el archivo \texttt{server.properties} en la carpeta \texttt{assets} de cada aplicación que usa internet (todas excepto Animal Keyboard). Es necesario hacer este cambio desde Eclipse, para que al guardar el archivo recompile la aplicación con la nueva dirección. Es importante que la dirección del servidor en \texttt{server.properties} tenga el puerto 4567 al 	final, ya que éste es el puerto que usa Ruby por defecto.
+
+Para esto modificar la siguiente linea en server.rb:
+
+\begin{verbatim}
+set :bind, '192.168.33.1'
+\end{verbatim}
+
+Por una direcci\'on accesible por los modulos.
+
+Luego ejecutar:
+
+\begin{verbatim}
+$ cd Servercito
+$ ruby server.rb 
+\end{verbatim}
+
+
 	
 	\subsection{Correr aplicaciones}
 		Para correr las aplicaciones es necesario correr un emulador desde Eclipse. Una vez que esté corriendo -sea el emulador normal o Genymotion-, seleccionar en Eclipse una de las aplicaciones importadas con el botón derecho y elegir Run as Android Application. Para que funcionen correctamente es necesario que el servidor esté corriendo y que halla datos para robar (por ejemplo fotos, que se pueden obtener con la cámara del emulador, o contactos que se pueden crear, dependiendo de la app).
