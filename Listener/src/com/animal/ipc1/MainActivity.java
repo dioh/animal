@@ -66,7 +66,6 @@ public class MainActivity extends Activity {
         return true;
     }
     
-	
 	private String getAddress() {
 		try {
 			Properties properties = new Properties();
