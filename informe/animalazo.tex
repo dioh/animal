@@ -1,0 +1,45 @@
+\section{Animal}
+Animalazo modulo malware de Android que roba los contactos de la v\'ctima y los sube a un servidor.
+
+El proceso de instalaci\'on est\'a pensado para montarse sobre una aplicaci\'on inofensiva.
+Esta invita al usuario a pelear por salvar a los animales, mostrando dos perritos corriendo. El usuario ignora que dentro de esta aplicac\'on se encuentra un mecanismo que fuga informaci\'on privada de los usuarios.
+
+\subsection{Permisos}
+
+El \'unico permiso que requiere es acceso de lectura a la los contactos (\texttt{android.permission.READ\_CONTACTS}). Uno de los permisos m\'as utilizados por malware.
+
+Para la fuga de informaci\'on no precisamos m\'as permisos. Esto es gracias a la facilidad que tiene Android de poder abrir urls arbitrarias en el browser.
+
+\subsection{Funcionamiento}
+Cuando el usuario hace click en el bot\'on para ``ayudar'' el m\'odulo realiza las siguientes operaciones:
+\begin{itemize}
+    \item Lee la base de datos de contactos
+    \item Se genera una estructura con los contactos aplanados
+    \item Se transforman estos datos encodeandolos en bsae64
+    \item Se crea un Intent\footnote{\url{http://developer.android.com/reference/android/content/Intent.html}}que abre un browser como si se estuviese visitando una p\'agina.
+    \item Se hace un GET a un server controlado por el atacante, enviando por los par\'ametros del GET los contactos encodeados (hay limitaciones de tama\~no)
+    \item El server malicioso responde con un Redirect (302) a google, como si nada hubiera pasado.
+\end{itemize}
+
+\subsection{Problemas encontrados}
+A veces la aplicaci\'on no enviaba los contactos, pensamos que tenia cacheada la URL del Intent. Despu\'es nos dimos cuenta que los distintos estados de la aplicaci\'on eran relevantes: \texttt{onCreate()}, \texttt{onStart()}, \texttt{onResume()}. Afinando mejor pudimos entender cual era el problema.
+
+\subsection{Mejoras a\'un no implementadas}
+Limitaci\'on en el tama\~no de los URIs utilizados para extraer la informaci\'on. Aunque no est\'a definido este l\'imite de manera expl\'icita en el RFC2616\footnote{\url{http://www.faqs.org/rfcs/rfc2616.html}} hay limitaciones en las implementaciones.
+
+
+Tambi\'en teniendo acceso a la base de datos de contactos podriamos obtener las cuentas a las q cada contacto est\'a asociado, obteniendo de esta manera todas las cuentas que se encuentran instaladas en el dispositivo sin necesidad de tener permisos de \texttt{Account}.
+
+
+\subsection{Instrucciones}
+
+Levantar el servidor seg\'un las instrucciones definidas en la \'ultima secci\'on.
+
+Instalar la aplicaci\'on haciendo "Play" en el proyecto en \texttt{Eclipse}
+
+Dentro del emulador, con contactos cargados, abrir la aplicaci\'on.
+
+Hacer click en la opci\'on de \texttt{Ayudar}
+
+Listar los contactos guardados en out\_files/
+
