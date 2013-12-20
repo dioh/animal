@@ -2,7 +2,7 @@
 require 'sinatra'
 require 'haml'
 require 'base64'
-
+ 
 set :bind, '192.168.33.1'
 
 out_path = 'out_files'

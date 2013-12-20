@@ -7,3 +7,12 @@ Para la implementaci\'on de los m\'odulos utilizamos:
     \item[Genymotion Android Emulator ] para poder testear los modulos
     \item[Sinatra como Applicaction ] como application server
 \end{description}
+\section{Tecnología}
+	\subsection{Android ADT Bundle} 
+		Android ADT Bundle\footnote{ \url{http://developer.android.com/sdk/index.html}} es un paquete provisto por Google que incluye el SDK de Android necesario para compilar las aplicaciones, el entorno de desarrollo Eclipse, con plugins pre-instalados para Android, y un emulador de Android para probar las aplicaciones.
+		
+	\subsection{Genymotion Android Emulator}
+		Genymotion\footnote{\url{http://www.genymotion.com/}} es un emulador de Android que corre sobre Virtual Box usando la arquitectura x86, lo cual permite una performance considerablemente mayor a la del emulador oficial incluido en el Android ADT Bundle, Notamos que podemos correr aplicaciones en Genymotion con la misma velocidad que en un celular real, mientras que con el emulador oficial notamos una performance muy pobre que dificulta el testeo. Usamos también un plugin de Eclipse para Genymotion que nos permite lanzar la aplicación compilada desde la IDE al igual que en el emulador oficial.
+		
+	\subsection{Sinatra}
+		Sinatra\footnote{\url{http://www.sinatrarb.com/}} es un framework de Ruby que permite crear aplicaciones web muy fácilmente y con muy poco código. La usamos porque el servidor que usan nuestras aplicaciones es bastante simple, y sólo recibe y guarda datos de las víctimas. Otras ventajas de Sinatra es que es distribuible, fácil de mantener y extensible.
