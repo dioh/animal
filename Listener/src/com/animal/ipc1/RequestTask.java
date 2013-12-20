@@ -33,7 +33,6 @@ class RequestTask extends AsyncTask<String, String, Boolean>{
         try {
         	HttpPost post = new HttpPost(data[0]);
 
-        	// Request parameters and other properties.
         	List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>(2);
         	params.add(new BasicNameValuePair("data", data[1]));
         	post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
@@ -46,7 +45,6 @@ class RequestTask extends AsyncTask<String, String, Boolean>{
                 out.close();
                 responseString = out.toString();
             } else{
-                //Closes the connection.
                 response.getEntity().getContent().close();
                 return false;
             }

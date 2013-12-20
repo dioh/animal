@@ -13,7 +13,7 @@ import android.os.Messenger;
 
 public class RemoteService extends Service
 {
-	private Messenger messenger; //receives remote invocations
+	private Messenger messenger;
 
 	@Override
 	public IBinder onBind(Intent intent) 
@@ -28,7 +28,7 @@ public class RemoteService extends Service
 				}
 			}
 		}
-		//Return the proper IBinder instance
+		
 		return this.messenger.getBinder();
 	}
 
@@ -37,10 +37,6 @@ public class RemoteService extends Service
 		@Override
 		public void handleMessage(Message msg) 
 		{
-			System.out.println("*****************************************");
-			System.out.println("Remote Service successfully invoked!!!!!!");
-			System.out.println("*****************************************");
-
 			int what = msg.what;
 			String key = msg.getData().getString("k");
 

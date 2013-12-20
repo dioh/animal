@@ -65,7 +65,6 @@ public class MainActivity extends Activity {
 	}
 
 	public ArrayList<String> getContactsStrings(){
-		// FIXME: Projections like this only works when contacts have both, name and phone
 		ArrayList<String> contacts = new ArrayList<String>();
 
 		Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
@@ -82,11 +81,9 @@ public class MainActivity extends Activity {
 			String name   = people.getString(indexName);
 			String number = people.getString(indexNumber);
 			contacts.add(name + ";" + number);
-			// Do work...
 		} while (people.moveToNext());
 
 		return contacts;
-
 	}
 	
 	private String getAddress() {
