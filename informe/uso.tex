@@ -1,0 +1,31 @@
+\section{Instrucciones de Uso}
+
+	\subsection{Android ADT Bundle}
+		Para poder compilar las aplicaciones o agregarlas al emulador es necesario contar con el paquete Android ADT Bundle que se consigue en \url{https://developer.android.com/sdk/index.html}. El ejecutable de la interfaz Eclipse se encuentra en la carpeta eclipse. \\
+
+		Para agregar las aplicaciones al Eclipse es necesario seleccionar la opción \texttt{File -> Import}, elegir \texttt{Android -> Existing Android code into workspace} y seleccionar el directorio de la aplicación.
+
+	\subsection{Genymotion}
+		Si bien las aplicaciones corren en el emulador incluido en el ADT Bundle, se recomienda Genymotion por razones de performance. Además como el emulador oficial no usa wi-fi, no es posible testear si funciona la app Animal (aunque si las otras), ya que Animal está diseñada para solo subir fotos sólo por wi-fi.\\
+
+		Para usar Genymotion es necesario crear una cuenta en \url{http://www.genymotion.com/} y bajarse el instalador para el sistema operativo correspondiente. También es necesario bajarse e instalar el plugin para Eclipse. Al abrir Genymotion por primera vez es necesario bajarse un dispositivo virtual de entre los disponibles, para lo cuál será necesario loguearse con la cuenta creada.
+
+	\subsection{Servercito}
+		Para tener todo lo necesario para correr el servidor en linux es necesario
+
+		\begin{itemize}
+			\item Instalar RVM (Ruby Version Manager) 	\begin{verbatim}curl -sSL https://get.rvm.io | bash -s stable --ruby\end{verbatim}.\
+			Puede que sea necesario agregar \begin{verbatim}[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"\end{verbatim}\
+	a .bashrc
+			\item Instalar la versión 1.9.2 de Ruby con \begin{verbatim}rvm install 1.9.2\end{verbatim}.
+			\item Instalar Sinatra con \begin{verbatim}gem install sinatra\end{verbatim}.
+			\item Instalar la librería haml con \begin{verbatim}gem install haml\end{verbatim}.
+		\end{itemize}
+
+		Una vez instalado todo lo necesario debería poder correr el servidor con \texttt{ruby server.rb} en el directorio Servercito.
+	
+	\subsection{Direcciones IP}
+		Por defecto Severcito bindea a la dirección IP \texttt{192.168.33.1} con el puerto \texttt{4567}, a la que también referencian las aplicaciones. Si esa dirección IP no está disponible, será necesario cambiarla por otra en el código de \texttt{server.rb} y también en las aplicaciones. Para cambiar la dirección del servidor en las aplicaciones es necesario modificar el archivo \texttt{server.properties} en la carpeta \texttt{assets} de cada aplicación que usa internet (todas excepto Animal Keyboard). Es necesario hacer este cambio desde Eclipse, para que al guardar el archivo recompile la aplicación con la nueva dirección. Es importante que la dirección del servidor en \texttt{server.properties} tenga el puerto 4567 al 	final, ya que éste es el puerto que usa Ruby por defecto.
+	
+	\subsection{Correr aplicaciones}
+		Para correr las aplicaciones es necesario correr un emulador desde Eclipse. Una vez que esté corriendo -sea el emulador normal o Genymotion-, seleccionar en Eclipse una de las aplicaciones importadas con el botón derecho y elegir Run as Android Application. Para que funcionen correctamente es necesario que el servidor esté corriendo y que halla datos para robar (por ejemplo fotos, que se pueden obtener con la cámara del emulador, o contactos que se pueden crear, dependiendo de la app).
